@@ -1,15 +1,18 @@
 package com.example.marketService
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class GroceryController {
     @Autowired
-    private lateinit var database: GroceryData
+    private var cart: GroceryCart = GroceryCart()
 
     @RequestMapping("/", method = [RequestMethod.GET])
-    fun students() = database.getGroceries()
+    fun students() = cart.getGroceries()
+
+    @RequestMapping("/addGroceryItem", method = [RequestMethod.PUT])
+    fun addGroceryItem(@RequestBody addGroceryPayload: AddGroceryPayload) =
+            if (cart.addGroceryItem(addGroceryPayload)) "200"
+            else throw Exception("Unable to add grocery to cart")
 }

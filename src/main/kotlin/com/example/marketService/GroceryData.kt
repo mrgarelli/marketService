@@ -3,12 +3,12 @@ package com.example.marketService
 import org.springframework.stereotype.Component
 import javax.annotation.PostConstruct
 
+// TODO: convert this to an actual database
 @Component
 class GroceryData {
-    private val groceries = mutableListOf<GroceryItem>()
+    final val groceries = mutableListOf<GroceryItem>()
 
-    @PostConstruct
-    private fun init() {
+    init {
         groceries.add(GroceryItem(
                 "0001",
                 "https://zxing.org/w/chart?cht=qr&chs=350x350&chld=L&choe=UTF-8&chl=0001",
@@ -32,9 +32,10 @@ class GroceryData {
         ))
     }
 
+    fun getGroceryFromQrUrl(qrUrl: String) =
+        groceries.find { it.qrUrl == qrUrl }
 
-    fun getGroceries(): MutableList<GroceryItem> {
-        return groceries
-    }
+    fun getGroceryFromId(id: String) =
+            groceries.find { it.id == id }
 }
 
