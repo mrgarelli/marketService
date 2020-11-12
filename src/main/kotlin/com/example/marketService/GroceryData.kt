@@ -20,7 +20,7 @@ class GroceryData {
                 "0002",
                 "https://zxing.org/w/chart?cht=qr&chs=350x350&chld=L&choe=UTF-8&chl=0002",
                 name = "Apple",
-                price = "$4.00",
+                price = "$3.00",
                 thumbnail = "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/237/red-apple_1f34e.png"
         ))
         groceries.add(GroceryItem(

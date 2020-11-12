@@ -14,9 +14,9 @@ def postAddStudent(rollNumber, name):
     res = requests.post(url=endpoint, json=data)
     print(res.status_code)
 
-def putAddGroceryItem(qrUrl):
+def putAddGroceryItem(search_param, value):
     endpoint = baseuri + '/addGroceryItem'
-    data = {'qrUrl': qrUrl}
+    data = {search_param: value}
     res = requests.put(url=endpoint, json=data)
     print(res.status_code)
     print(res.json())
@@ -57,22 +57,14 @@ class CLI(DeclarativeCLI):
                 sh.log.success()
 
     class Commands(DeclarativeCommands):
-        class addStudent:
-            description = '<rollNumber> <name> add a student to the database'
+        class addGrocery:
+            description = '<qrUrl|id> <value> change a current students name'
             @staticmethod
             def instructions(remainder):
                 if len(remainder) != 2:
-                    sh.log.error('expected 2 arguments <rollNumber> <name>')
-                rollNumber, name = remainder
-                postAddStudent(rollNumber, name)
-        class addGrocery:
-            description = '<qrUrl> change a current students name'
-            @staticmethod
-            def instructions(remainder):
-                if len(remainder) != 1:
-                    sh.log.error('expected 1 arguments <qrUrl>')
-                qrUrl = remainder[0]
-                putAddGroceryItem(qrUrl)
+                    sh.log.error('expected 2 arguments <qrUrl|id> <value>')
+                search_param, value = remainder
+                putAddGroceryItem(search_param, value)
 
         def __default_no_args__(self):
             cli.help()
